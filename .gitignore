@@ -1,0 +1,19 @@
+# dependencies
+node_modules/
+
+# local state and logs (Conjure keeps its data in ~/.conjure by default; never commit a state folder)
+.conjure/
+*.log
+*.db
+*.db-wal
+*.db-shm
+
+# packaging output
+release/
+*.zip
+
+# editor / OS noise
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/

@@ -1,0 +1,65 @@
+{
+  "sha": "522140f62cecc55ebabd1f1d0226e5828fd0c93c",
+  "branch": "feat/final-product",
+  "subject": "Keep the preview native window title stable across page navigation",
+  "builtAt": "2026-09-08T02:58:45.313Z",
+  "dirty": false,
+  "schemaVersion": 7,
+  "capabilities": [
+    {
+      "id": "control",
+      "name": "Command Control"
+    },
+    {
+      "id": "ideas",
+      "name": "Idea Room"
+    },
+    {
+      "id": "network",
+      "name": "Network"
+    },
+    {
+      "id": "judgments",
+      "name": "Judgments"
+    },
+    {
+      "id": "directive",
+      "name": "Directive"
+    },
+    {
+      "id": "workflow",
+      "name": "Workflow designer"
+    },
+    {
+      "id": "homework",
+      "name": "Homework"
+    },
+    {
+      "id": "meetings",
+      "name": "Meetings"
+    },
+    {
+      "id": "people",
+      "name": "People and waits"
+    },
+    {
+      "id": "self",
+      "name": "Conjure itself"
+    },
+    {
+      "id": "tools",
+      "name": "Tools"
+    },
+    {
+      "id": "frontier",
+      "name": "Experimental providers"
+    },
+    {
+      "id": "container",
+      "name": "Desktop container awareness"
+    }
+  ],
+  "webHash": "b720da749ae0fd1e",
+  "sourcePath": null,
+  "editionId": null
+}

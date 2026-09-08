@@ -1,0 +1,62 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<title>Conjure</title>
+<style>
+  :root { color-scheme: dark; --bg: #090d16; --panel: #121a27; --line: #334359; --text: #dfE8f5; --dim: #98acc6; --accent: #9dbce5; --ok: #87cbb0; --bad: #f19086; --mono: ui-monospace, Consolas, monospace; }
+  html, body { height: 100%; margin: 0; }
+  body { background: radial-gradient(ellipse at 12% 0%, #152a4655, transparent 48%), var(--bg); color: var(--text); font: 15px/1.55 system-ui, Segoe UI, sans-serif; display: grid; place-items: center; -webkit-app-region: drag; }
+  .card { width: min(560px, 90vw); background: var(--panel); border: 1px solid var(--line); border-radius: 14px; padding: 28px 32px; box-shadow: 0 10px 40px #0008; -webkit-app-region: no-drag; }
+  .brand { font-size: 26px; font-weight: 850; letter-spacing: .14em; }
+  .caption { font: 10px var(--mono); color: #92a9ca; letter-spacing: .22em; margin-top: 4px; }
+  .phase { margin-top: 22px; font-weight: 700; }
+  .detail { color: var(--dim); margin-top: 6px; min-height: 44px; }
+  .facts { margin-top: 16px; font: 12px var(--mono); color: var(--dim); display: grid; grid-template-columns: max-content 1fr; gap: 3px 14px; }
+  .facts b { color: var(--text); font-weight: 500; }
+  .bar { margin-top: 18px; height: 3px; background: #26364b; border-radius: 2px; overflow: hidden; }
+  .bar i { display: block; height: 100%; width: 40%; background: var(--accent); animation: slide 1.4s ease-in-out infinite; }
+  .bar.still i { animation: none; width: 100%; background: var(--ok); }
+  .bar.bad i { animation: none; width: 100%; background: var(--bad); }
+  @keyframes slide { 0% { transform: translateX(-100%); } 100% { transform: translateX(260%); } }
+  .foot { margin-top: 16px; font-size: 12px; color: var(--dim); }
+  .foot span { color: var(--accent); }
+  details { margin-top:18px; color:var(--dim); font-size:12px; }
+  @media(prefers-reduced-motion: reduce) { .bar i { animation:none; } }
+</style>
+</head>
+<body>
+  <div class="card">
+    <div class="brand">CONJURE</div>
+    <div class="caption">YOUR ORGANIZATION, IN YOUR HANDS</div>
+    <div class="phase" id="phase">Looking for the organization…</div>
+    <div class="detail" id="detail"></div>
+    <div class="bar" id="bar"><i></i></div>
+    <details><summary>Connection details</summary><div class="facts" id="facts"></div></details>
+    <div class="foot" id="foot">Nothing here needs you. Responsibility lives in the machine, not in this window.</div>
+  </div>
+<script>
+  const PHASES = {
+    locating: ["Looking for the organization…", "If a machine is already running for this home, it is adopted as is. Nothing is restarted to open a window."],
+    starting: ["Starting the organization…", "Opening your saved work and bringing the organization online."],
+    adopted: ["The organization is answering.", "Opening your session…"],
+    reconnecting: ["Reconnecting…", "Your saved work is still here. Conjure is restoring the connection."],
+    failed: ["Conjure could not reach its organization.", ""],
+    stopping: ["Stopping the organization…", "Running attempts will be marked interrupted by the next boot and resumed then. Saved obligations remain; interrupted attempts can leave partial external effects."],
+  };
+  async function tick() {
+    if (!window.conjureDesktop) { document.getElementById("detail").textContent = "This page expects to run inside the Conjure application."; return; }
+    const m = await window.conjureDesktop.machine();
+    const [title, fallback] = PHASES[m.phase] || [m.phase, ""];
+    document.getElementById("phase").textContent = title;
+    document.getElementById("detail").textContent = m.phase === "failed" ? m.detail || fallback : fallback;
+    const bar = document.getElementById("bar");
+    bar.className = "bar" + (m.phase === "adopted" ? " still" : m.phase === "failed" ? " bad" : "");
+    const f = [["home", m.home], ["port", m.port ?? "—"], ["supervisor", m.supervisorPid ? "pid " + m.supervisorPid : "none seen"], ["gateway", m.gatewayPid ? "pid " + m.gatewayPid + (m.bootId ? " · " + m.bootId : "") : "not answering"], ["edition", m.edition ?? "bootstrap core (no edition yet)"], ["since", new Date(m.since).toLocaleTimeString()]];
+    document.getElementById("facts").innerHTML = f.map(([k, v]) => `<span>${k}</span><b>${String(v).replace(/</g, "&lt;")}</b>`).join("");
+    document.getElementById("foot").innerHTML = m.phase === "failed" ? "These facts are the container's own observations. Fix the cause and reopen Conjure; your saved work remains available." : "Nothing here needs you. Responsibility lives in the machine, not in this window. <span>Conjure keeps working when this window is closed.</span>";
+  }
+  tick(); setInterval(tick, 700);
+</script>
+</body>
+</html>

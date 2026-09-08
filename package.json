@@ -1,0 +1,30 @@
+{
+  "name": "conjure-free",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Conjure: a desktop organization for AI work. Commission work, keep responsibility durable, inspect exactly what happened.",
+  "license": "Apache-2.0",
+  "author": "Donne Berberabe",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/donkits1/conjure-free.git"
+  },
+  "engines": {
+    "node": ">=24"
+  },
+  "packageManager": "pnpm@11.20.0",
+  "scripts": {
+    "postinstall": "node scripts/ensure-electron.mjs",
+    "desktop": "electron ./app",
+    "desktop:windowed": "electron ./app --windowed",
+    "start": "node core/dist/cli.js start",
+    "stop": "node core/dist/cli.js stop",
+    "restart": "node core/dist/cli.js restart",
+    "status": "node core/dist/cli.js status",
+    "doctor": "node core/dist/cli.js doctor",
+    "check": "node core/dist/check/run.js"
+  },
+  "devDependencies": {
+    "electron": "44.2.0"
+  }
+}

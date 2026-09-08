@@ -1,0 +1,19 @@
+Conjure
+Copyright 2026 Donne Berberabe
+
+Created and maintained by Donne Berberabe.
+Canonical project: https://github.com/donkits1/conjure-free
+
+This product is licensed under the Apache License, Version 2.0 (see LICENSE).
+
+Branding
+--------
+"Conjure", the Conjure emblem (the sun-and-constellation mark in
+core/dist/web/assets and app/static/conjure.ico) and the identity of the
+canonical Conjure project are not licensed under the Apache License and no
+trademark rights are granted by it (see Section 6 of the License). You may
+fork, modify and redistribute the software freely; please give your
+derivative its own name and mark if you distribute it, and do not present a
+modified build as the official Conjure release.
+
+Third-party components are listed in THIRD-PARTY-NOTICES.md.
